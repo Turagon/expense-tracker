@@ -1,0 +1,64 @@
+{
+  "record": [
+    {
+      "name": "搭火車回嘉義",
+      "category": 2,
+      "date": "2021-05-20",
+      "amount": 300
+    },
+    {
+      "name": "便當",
+      "category": 4,
+      "date": "2021-05-20",
+      "amount": 100
+    },
+    {
+      "name": "旅館住宿",
+      "category": 1,
+      "date": "2021-05-20",
+      "amount": 1000
+    },
+    {
+      "name": "搭火車回台北",
+      "category": 2,
+      "date": "2021-05-21",
+      "amount": 300
+    },
+    {
+      "name": "看電影",
+      "category": 3,
+      "date": "2021-05-27",
+      "amount": 280
+    },
+    {
+      "name": "跟朋友吃飯",
+      "category": 4,
+      "date": "2021-05-27",
+      "amount": 400
+    },
+    {
+      "name": "買衛生紙",
+      "category": 1,
+      "date": "2021-05-30",
+      "amount": 105
+    },
+    {
+      "name": "捷運儲值",
+      "category": 2,
+      "date": "2021-06-03",
+      "amount": 1000
+    },
+    {
+      "name": "喝咖啡",
+      "category": 4,
+      "date": "2021-06-04",
+      "amount": 50
+    },
+    {
+      "name": "買菜",
+      "category": 4,
+      "date": "2021-06-05",
+      "amount": 500
+    }
+  ]
+}
