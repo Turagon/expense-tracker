@@ -1,17 +1,20 @@
 <div class="total-lists">
   {{#each records}}
-  <div class="list">
+  <div class="list {{even @index}}">
     <div class="list-details">
       <div class="list-content">
         {{{this.icon}}}
+      </div>
+      <div class="list-name-date">
         <span class="list-title">{{this.name}}</span>
+        <span class="list-date">{{this.date}}</span>
       </div>
       <div class="list-amount">
         <span class="list-amount-dollar">{{this.amount}}</span>
       </div>
     </div>
     <div class="list-button">
-      <button type="submit" class="list-edit btn btn-secondary" ><i class="fas fa-pencil-alt"></i><a href="/tracker/{{this._id}}" class="edit">編輯</a></button>
+      <a href="/tracker/{{this._id}}" class="edit"><button type="submit" class="list-edit btn btn-secondary" ><i class="fas fa-pencil-alt"></i>編輯</button></a>
       <button type="button" class="list-delete btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-item"><i class="fas fa-trash-alt"></i>刪除</button>
       <div class="modal fade" id="delete-item" tabindex="-1" aria-labelledby="delete-item" aria-hidden="true">
         <div class="modal-dialog">

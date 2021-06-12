@@ -3,7 +3,7 @@ const router = express.Router()
 
 const record = require('../../models/recordSchema')
 const category = require('../../models/categorySchema')
-const {iconSelect, totalAmount, formatNumber} = require('../../public/javascripts/listAndTotal')
+const { iconSelect, totalAmount, formatNumber } = require('../../public/javascripts/listAndTotal')
 
 router.get('/', (req, res) => {
   Promise.all([record.find().lean(), category.find().lean()])

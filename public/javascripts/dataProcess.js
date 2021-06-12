@@ -23,8 +23,8 @@ function getdata (url) {
   axios
     .get(url)
     .then(res => {
-      records = res.data[0]
-      categories = res.data[1]
+      let records = res.data[0]
+      let categories = res.data[1]
       let labels = label(...categories)
       let subTotals = []
       for (let i of categories) {
@@ -32,8 +32,11 @@ function getdata (url) {
       }
       const majorContent = document.querySelector('.major-content')
       majorContent.innerHTML = ''
+      let chartContainer = document.createElement("div")
+      chartContainer.classList = 'canvas-box'
       let myChart = document.createElement("canvas")
-      majorContent.appendChild(myChart)
+      majorContent.appendChild(chartContainer)
+      chartContainer.appendChild(myChart)
       let ctx = new Chart(myChart, {
         type: 'pie',
         data: {
@@ -59,13 +62,26 @@ function getdata (url) {
             radius: '70%'
           }]
         },
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: '費用分布',
+              font: {
+                size: 24,
+              }
+            }
+          }
+        }
       })
     })
     .catch(err => {
       console.log(err)
     })
 }
-  
-button.addEventListener('click', event => {
-  getdata(url)
-})
+ 
+if (button) {
+  button.addEventListener('click', event => {
+    getdata(url)
+  })
+}

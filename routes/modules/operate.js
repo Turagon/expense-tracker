@@ -2,8 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const record = require('../../models/recordSchema')
-const categories = require('../../models/categorySchema')
-const { iconSelect, totalAmount, formatNumber } = require('../../public/javascripts/listAndTotal')
+const { totalAmount, formatNumber } = require('../../public/javascripts/listAndTotal')
 
 router.get('/', (req, res) => {
   res.render('add')

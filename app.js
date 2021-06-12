@@ -11,6 +11,9 @@ const app = express()
 const handlebars = require('handlebars')
 const helper = require('just-handlebars-helpers')
 helper.registerHelpers(handlebars)
+handlebars.registerHelper('even', function(value, options) {
+  return ('a' + value % 2)
+})
 
 
 app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}))

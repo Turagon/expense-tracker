@@ -6,7 +6,7 @@
 
 /* main.hbs */
 .container {
-  width: 95%;
+  width: 85%;
   margin: 0 auto;
 }
 
@@ -38,7 +38,7 @@ header h4 {
 
 .display-switch {
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   text-align: end;
   font-size: 25px;
 }
@@ -50,10 +50,37 @@ header h4 {
   color: lightgrey;
 }
 
+.pie-chart {
+  background: none;
+  border: none;
+  color: lightgrey;
+}
+
+.canvas-box {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.bottom {
+  font-size: 18px;
+  text-align: center;
+}
+
+.bottom a {
+  text-decoration: none;
+  color: aliceblue;
+  font-weight: bolder;
+  background-color: navy;
+  border-radius: 4px;
+  width: 15%;
+  padding: 3px;
+}
+
 /* searchBar.hbs */
 .search-bar-box {
   width: 100%;
   height: 40px;
+  margin-bottom: 10px;
   font-size: 20px;
   display: flex;
   justify-content: center;
@@ -83,4 +110,118 @@ header h4 {
 .search-bar-box button {
   color: aliceblue;
   font-weight: bolder;
+}
+
+/* total.hbs */
+.total-amount {
+  text-align: center;
+  font-size: 30px;
+  color: chocolate;
+  margin-bottom: 15px;
+}
+
+/* expenseList.hbs */
+.record-list {
+  width: 100%;
+  padding-left: 28%;
+  margin-bottom: 12px;
+}
+
+.total-lists {
+  width: 100%;
+  padding-right: 10%;
+}
+
+.total-lists .list {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.list-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 65%;
+  padding: 4px;
+  color: chocolate;
+  font-weight: bolder;
+}
+
+.list-details i {
+  width: 36px;
+  height: 32px;
+  margin-right: 12px;
+  font-size: 30px;
+  color: #acdde7;
+}
+
+.list-name-date {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 0 0 ;
+}
+
+.list-title {
+  font-size: 18px;
+}
+
+.list-date {
+  font-size: 10px;
+}
+
+.list-edit .edit {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+.list-button i {
+  margin-right: 4px;
+}
+
+.list.a0 .list-details {
+  background-color: #f7f7f7;
+}
+
+/* edit.hbs */
+.edit-body {
+  width: 50%;
+  margin: 15px auto;
+  color: #a4a4a4;
+}
+
+.edit-titel-right {
+  text-align: center;
+}
+
+.asterisk {
+  color: red;
+  margin-right: 3px;
+}
+
+.edit-buttons {
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.edit-buttons button {
+  margin: 0 10px;
+}
+
+.edit-buttons button a {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+/* form.hbs */
+.form-content .edit-column {
+  margin-bottom: 25px;
+}
+
+.custom-select {
+  border-color: #a4a4a4;
+  width: 45%;
+  border-radius: 5px;
 }
