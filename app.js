@@ -2,7 +2,6 @@ const express = require('express')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
-const chart = require('chart.js')
 require('./config/mongoose')
 const routes = require('./routes')
 const port = process.env.PORT || 3000
