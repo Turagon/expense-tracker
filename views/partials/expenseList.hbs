@@ -1,0 +1,35 @@
+<div class="total-lists">
+  {{#each records}}
+  <div class="list">
+    <div class="list-details">
+      <div class="list-content">
+        {{{this.icon}}}
+        <span class="list-title">{{this.name}}</span>
+      </div>
+      <div class="list-amount">
+        <span class="list-amount-dollar">{{this.amount}}</span>
+      </div>
+    </div>
+    <div class="list-button">
+      <button type="submit" class="list-edit btn btn-secondary" ><i class="fas fa-pencil-alt"></i><a href="/tracker/{{this._id}}" class="edit">編輯</a></button>
+      <button type="button" class="list-delete btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-item"><i class="fas fa-trash-alt"></i>刪除</button>
+      <div class="modal fade" id="delete-item" tabindex="-1" aria-labelledby="delete-item" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ModalLabel">注意! 此操作將會刪除資料</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+              <form action="/tracker/{{this._id}}?_method=DELETE" method="post">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-undo"></i>返回</button>
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i>確認刪除</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>

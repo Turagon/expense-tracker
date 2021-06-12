@@ -1,13 +1,16 @@
-const db2 = require('../../config/mongoose2')
+const db = require('../../config/mongoose')
 const Category = require('../categorySchema')
 const categoryData = require('../../category.json').category
 
-db2.once('open', () => {
+db.once('open', () => {
   Category.create(categoryData)
     .then(() => {
-      return db2.close()
+      return db.close()
     })
     .then(() => {
       console.log('category data import done')
+    })
+    .catch(error => {
+      console.error(error)
     })
 })

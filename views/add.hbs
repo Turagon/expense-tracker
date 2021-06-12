@@ -1,0 +1,14 @@
+<div class="edit">
+  <div class="header">
+    <h3 class="header-title">家庭記帳本</h3>
+  </div>
+  <div class="edit-title">
+    <span class="edit-title-left"><span class="asterisk">*</span>為必填欄位</span>
+    <h4 class="edit-titel-right">新增支出項目</h4>
+  </div>
+  <form action="/tracker" method="POST" class="edit-form">
+    {{>form}}
+    <button type="submit" class="edit-form-btn btn btn-danger">送出</button>
+    <button type="button" class="edit-form-btn btn btn-primary"><a href="/">返回</a></button>
+  </form>
+</div>

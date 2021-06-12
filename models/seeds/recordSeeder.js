@@ -10,4 +10,7 @@ db.once('open', () => {
     .then(() => {
       console.log('record data import done')
     })
+    .catch(error => {
+      console.error(error)
+    })
 })
