@@ -9,6 +9,7 @@
 
 ### Installation & Execution   
  1. clone the whole file from github 
+    https://github.com/Turagon/expense-tracker.git    
  2. use terminal to access this folder at locale   
  3. run npm command to install the follows   
   - express   
