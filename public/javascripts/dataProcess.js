@@ -1,4 +1,4 @@
-const url = "http://localhost:3000/data"
+const url = "https://shielded-eyrie-64965.herokuapp.com/data"
 const button = document.querySelector('.pie-chart')
 
 function label (...categories) {
