@@ -15,6 +15,9 @@ router.get('/', (req, res) => {
       const amount = formatNumber(totalAmount(...records))
       res.render('index', {records, amount})
     })
+    .catch(err => {
+      next(err)
+    })
 })
 
 router.get('/data', (req, res) => {
@@ -23,7 +26,9 @@ router.get('/data', (req, res) => {
       const [records, categories] = results
       res.json([records, categories])
     })
-    .catch(error => console.error(error))
+    .catch(err => {
+      next(err)
+    })
 })
 
 module.exports = router
