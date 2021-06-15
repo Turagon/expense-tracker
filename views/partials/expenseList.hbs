@@ -15,8 +15,8 @@
     </div>
     <div class="list-button">
       <a href="/tracker/{{this._id}}" class="edit"><button type="submit" class="list-edit btn btn-secondary" ><i class="fas fa-pencil-alt"></i>編輯</button></a>
-      <button type="button" class="list-delete btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-item"><i class="fas fa-trash-alt"></i>刪除</button>
-      <div class="modal fade" id="delete-item" tabindex="-1" aria-labelledby="delete-item" aria-hidden="true">
+      <button type="button" class="list-delete btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-item{{this._id}}"><i class="fas fa-trash-alt"></i>刪除</button>
+      <div class="modal fade" id="delete-item{{this._id}}" tabindex="-1" aria-labelledby="delete-item" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">

@@ -1,5 +1,4 @@
 const express = require('express')
-const { NativeError } = require('mongoose')
 const router = express.Router()
 
 const record = require('../../models/recordSchema')
@@ -13,23 +12,23 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   const id = req.params.id
   record.exists({_id: id})
-    .then(doc => {
-      if (doc) {
-        record.findById(id)
-        .lean()
-        .then(data => {
-          res.render('edit', {id, data})
-        })
-        .catch(err => {
-          next(err)
-        })
-      } else {
-        res.send('request not exist')
-      }
-    })
-    .catch(err => {
-      return next(err)
-    })
+  .then(doc => {
+    if (doc) {
+      record.findById(id)
+      .lean()
+      .then(data => {
+        res.render('edit', {id, data})
+      })
+      .catch(err => {
+        next(err)
+      })
+    } else {
+      res.send('request not exist')
+    }
+  })
+  .catch(err => {
+    return next(err)
+  })
 })
 
 router.post('/search', (req, res) => {
@@ -58,18 +57,13 @@ router.post('/search', (req, res) => {
 router.post('/', (req, res) => {
   const data = req.body
   if (validator(data)) {
-    record.create({
-      name: data.name,
-      date: data.date,
-      category: data.category,
-      amount: data.amount
-    })
-    .then(() => {
-      res.redirect('/')
-    })
-    .catch(err => {
-      next(err)
-    })
+    record.create(data)
+      .then(() => {
+        res.redirect('/')
+      })
+      .catch(err => {
+        next(err)
+      })
   } else {
     res.send('invalid data post')
   }
