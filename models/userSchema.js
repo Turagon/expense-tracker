@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const schema = require('mongoose').Schema
 
 const userSchema = new schema({

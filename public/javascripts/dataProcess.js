@@ -1,4 +1,5 @@
-const url = "https://shielded-eyrie-64965.herokuapp.com/data"
+// const url = "https://shielded-eyrie-64965.herokuapp.com/data"
+const url = "/data"
 const button = document.querySelector('.pie-chart')
 
 function label (...categories) {

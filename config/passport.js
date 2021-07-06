@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const user = require('../models/userSchema')
 
 const localStrategy = new strategy(
-  {usernameField: email},
+  {usernameField: 'email'},
   (email, password, done) => {
     user.findOne({email})
       .then(user => {
