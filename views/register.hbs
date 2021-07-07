@@ -1,0 +1,48 @@
+<div class="register-img"></div>
+
+<form action="/auth/register" method="post" class="register">
+  {{#each errors}}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Note!</strong> {{this.msg}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {{/each}}
+  <div class="form-group mt-2">
+    <label for="name-register" class="select-label col-form-label col-3"><i class="fas fa-signature"></i>Name</label>
+    <div class="input-column p-0">
+      <input type="text" id="name-register" class="form-control" name="name" aria-describedby="help" maxlength="30"
+        {{#if name}} value="{{name}}" {{/if}} placeholder="please input your name here">
+    </div>
+  </div>
+  <div class="form-group mt-2">
+    <label for="email-register" class="select-label col-form-label col-3"><i class="far fa-envelope"></i>Email</label>
+    <div class="input-column p-0">
+      <input type="email" id="email-register" class="form-control" name="email" aria-describedby="help" maxlength="60"
+        {{#if email}} value="{{email}}" {{/if}} placeholder="please input email as your account name" required>
+      <small id="help" class="form-text text-muted invalid">email is required or invalid format</small>
+    </div>
+  </div>
+  <div class="form-group mt-2">
+    <label for="password-register" class="select-label col-form-label"><i class="fas fa-key"></i>Password</label>
+    <div class="input-column p-0">
+      <input type="text" id="password-register" class="form-control" name="password" aria-describedby="help"
+        minlength="6" maxlength="12" {{#if password}} value="{{password}}" {{/if}}
+        placeholder="At least one number, one lowercase, one uppercase character" required>
+      <small id="help" class="form-text text-muted invalid">invalid password length or format</small>
+    </div>
+  </div>
+  <div class="form-group mt-2">
+    <label for="password2-register" class="select-label col-form-label"><i class="fas fa-key"></i>Password
+      Confirm</label>
+    <div class="input-column p-0">
+      <input type="text" id="password2-register" class="form-control" name="password2" aria-describedby="help"
+        minlength="6" maxlength="12" {{#if password2}} value="{{password2}}" {{/if}} placeholder="please input password"
+        required>
+      <small id="help" class="form-text text-muted invalid">invalid password length or format</small>
+    </div>
+  </div>
+  <div class="login-button-box">
+    <button type="submit" class="login-button">Register</button>
+    <a href="/auth" class="homepage">Already have account? -> Login</a>
+  </div>
+</form>

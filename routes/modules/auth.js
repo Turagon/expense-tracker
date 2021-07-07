@@ -1,9 +1,9 @@
 const express = require('express')
-const users = require('../../models/userData')
+const user = require('../../models/userSchema')
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
 const { emailVerify, passwordVerify } = require('../../public/javascripts/authValidate.js')
-const { ensureAuth, forwardAuth } = require('../../config/pageAuth')
+const { ensureAuth, forwardAuth } = require('../../config/authentication')
 
 const router = express.Router()
 
@@ -70,7 +70,7 @@ router.post('/register', (req, res) => {
       layout: 'loginPage'
     })
   } else {
-    users.findOne({ email: email })
+    user.findOne({ email: email })
       .then(user => {
         if (user) {
           errors.push({ msg: 'the email is registered already' })
@@ -88,12 +88,12 @@ router.post('/register', (req, res) => {
               if (err) {
                 throw err
               }
-              users.create({
+              user.create({
                 name,
                 email,
                 password: hash
               })
-                .then(users => {
+                .then(user => {
                   req.flash('msg', 'Your registration is successful')
                   res.redirect('/auth')
                 })

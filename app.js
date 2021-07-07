@@ -25,13 +25,11 @@ handlebars.registerHelper('even', function(value, options) {
 app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}))
 app.set('view engine', 'hbs')
 app.use(express.static('public'))
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({extended: false}))
 app.use(methodOverride('_method'))
-app.use(routes)
 
 // express-session
 app.use(session({
-
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
@@ -49,6 +47,8 @@ app.use((req, res, next) => {
   res.locals.error = req.flash('error')
   next()
 })
+
+app.use(routes)
 
 app.listen(port, () => {
   console.log('server on')

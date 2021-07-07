@@ -10,7 +10,7 @@ function forwardAuth(req, res, next) {
   if (!req.isAuthenticated()) {
     return next()
   }
-  res.redirect('/home')
+  res.redirect('/')
 }
 
 module.exports = { ensureAuth, forwardAuth }
