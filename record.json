@@ -59,6 +59,41 @@
       "category": 4,
       "date": "2021-06-05",
       "amount": 500
+    },
+    {
+      "name": "上館子",
+      "category": 4,
+      "date": "2021-06-05",
+      "amount": 500,
+      "merchant": "阿麼的店"
+    },
+    {
+      "name": "去東京出差",
+      "category": 2,
+      "date": "2021-06-05",
+      "amount": 50000,
+      "merchant": "全日空"
+    },
+    {
+      "name": "買書",
+      "category": 1,
+      "date": "2021-06-05",
+      "amount": 500,
+      "merchant": "亞馬遜"
+    },
+    {
+      "name": "買CD",
+      "category": 3,
+      "date": "2021-06-05",
+      "amount": 500,
+      "merchant": "Netflex"
+    },
+    {
+      "name": "付帳單",
+      "category": 4,
+      "date": "2021-06-05",
+      "amount": 500,
+      "merchant": "電費"
     }
   ]
 }

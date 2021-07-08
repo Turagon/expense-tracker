@@ -9,7 +9,7 @@ const recordSchema = new schema({
   merchant: { type: String, required: false },
   userId: {
     type: schema.Types.ObjectId,
-    ref: 'user',
+    ref: 'users',
     index: true,
     required: true
   }

@@ -9,7 +9,8 @@ const { ensureAuth, forwardAuth } = require('../../config/authentication')
 router.use(ensureAuth)
 
 router.get('/', (req, res) => {
-  Promise.all([record.find().lean(), category.find().lean()])
+  const userId = req.user._id
+  Promise.all([record.find({ userId }).lean(), category.find().lean()])
     .then(results => {
       const [records, categories] = results
       records.forEach(item => {
@@ -24,7 +25,8 @@ router.get('/', (req, res) => {
 })
 
 router.get('/data', (req, res) => {
-  Promise.all([record.find().lean(), category.find().sort({id: 1}).lean()])
+  const userId = req.user._id
+  Promise.all([record.find({ userId }).lean(), category.find().sort({id: 1}).lean()])
     .then(results => {
       const [records, categories] = results
       res.json([records, categories])

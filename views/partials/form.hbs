@@ -33,6 +33,14 @@
   <div class="edit-column">
     <div class="input-group mb-2">
       <div class="input-group-prepend">
+        <div class="input-group-text">商家</div>
+      </div>
+      <input type="text" class="form-control" id="expense-amount" name="merchant" value="{{data.merchant}}" placeholder="merchant" maxlength="120">
+    </div>
+  </div>
+  <div class="edit-column">
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
         <div class="input-group-text"><span class="asterisk">*</span>金額</div>
       </div>
       <input type="number" min="0" class="form-control" id="expense-amount" name="amount" value="{{data.amount}}" placeholder="expense" required>

@@ -5,85 +5,98 @@ const record = require('../../models/recordSchema')
 const categories = require('../../models/categorySchema')
 const { totalAmount, formatNumber } = require('../../public/javascripts/listAndTotal')
 const validator = require('../../public/javascripts/dataValidator')
+const { ensureAuth, forwardAuth } = require('../../config/authentication')
+
+router.use(ensureAuth)
 
 router.get('/', (req, res) => {
   res.render('add')
 })
 
 router.get('/:id', (req, res) => {
-  const id = req.params.id
-  record.findById(id)
+  const _id = req.params.id
+  const userId = req.user._id
+  record.findOne({_id, userId})
     .lean()
     .then(data => {
-      res.render('edit', {id, data})
+      if (data) {
+        res.render('edit', {_id, data})
+      } else {
+        req.flash('error', 'Sorry, data does not exist')
+        res.redirect('/')
+      }
     })
-    .catch(err => {
-      next(err)
-    })
+    .catch(err => console.log(err))
 })
 
 router.post('/search', (req, res) => {
   const value = Number(req.body.filter)
-  Promise.all([record.find({category: value}).lean(), categories.find({id: value}).lean()])
+  const userId = req.user._id
+  Promise.all([record.find({category: value, userId}).lean(), categories.find({id: value}).lean()])
     .then(results => {
       const [records, icon] = results
       records.forEach(item => item.icon = icon[0].icon);
       const amount = formatNumber(totalAmount(...records))
       res.render('index', {records, amount, value})
     })
-    .catch(err => {
-      next(err)
-    })
+    .catch(err => console.log(err))
 })
 
 router.post('/', (req, res) => {
   const data = req.body
+  data.userId = req.user._id
   if (validator(data)) {
     record.create(data)
       .then(() => {
         res.redirect('/')
       })
-      .catch(err => {
-        next(err)
-      })
+      .catch(err => console.log(err))
   } else {
     res.send('invalid data post')
   }
 })
 
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const _id = req.params.id
+  const userId = req.user._id
   const update = req.body
   if (validator(update)) {
-    record.findById(id)
+    record.findOne({_id, userId})
       .then(record => {
-        record.name = update.name
-        record.date = update.date
-        record.category = update.category
-        record.amount = update.amount
-        return record.save()
+        if (record) {
+          record.name = update.name
+          record.date = update.date
+          record.category = update.category
+          record.amount = update.amount
+          return record.save()
+        } else {
+          req.flash('error', 'Sorry, Data does not exist')
+          res.redirect('/')
+        }
       })
       .then(() => res.redirect('/'))
-      .catch(err => {
-        next(err)
-      })
+      .catch(err => console.log(err))
   } else {
-    res.send('invalid data post')
+    res.send('Invalid data post')
   }
 })
 
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  record.findById(id)
-    .then(record => {
-      return record.remove()
+  const _id = req.params.id
+  const userId = req.user._id
+  record.findOne({_id, userId})
+    .then(records => {
+      if (records) {
+        return records.remove()
+      } else {
+        req.flash('error', 'Sorry, data does not exist')
+        res.redirect('/')
+      }
     })
     .then(() => {
       res.redirect('/')
     })
-    .catch(err => {
-      next(err)
-    })
+    .catch(err => console.log(err))
 })
 
 module.exports = router

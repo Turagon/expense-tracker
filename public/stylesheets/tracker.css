@@ -24,12 +24,23 @@ header h4 {
 }
 
 /* index.hbs */
-.header, .header a {
+.header-title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header {
   width: 100%;
   background-color: #f1f1f1;
+}
+
+.header a {
+  width: 20%;
   color: chocolate;
   font-weight: bolder;
   text-decoration: none;
+  text-align: center;
 }
 
 .header h3 {
