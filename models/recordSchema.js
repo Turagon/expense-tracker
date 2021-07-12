@@ -4,7 +4,7 @@ const schema = mongoose.Schema
 const recordSchema = new schema({
   name: {type: String, required: true},
   category: { type: Number, required: true },
-  date: { type: String, required: true },
+  date: { type: Date, default: Date.now, required: true },
   amount: { type: Number, required: true },
   merchant: { type: String, required: false },
   userId: {

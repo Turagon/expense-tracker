@@ -1,0 +1,17 @@
+form.calender-period {
+  width: 25%;
+  margin: 0 auto;
+}
+
+.weekday-title {
+  width: 91%;
+  margin: 20px auto;
+  padding: 0;
+  display: flex;
+}
+
+.weekday-title li {
+  width: 14.286%;
+  list-style: none;
+  text-align: center;
+}

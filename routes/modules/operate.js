@@ -9,6 +9,8 @@ const { ensureAuth, forwardAuth } = require('../../config/authentication')
 
 router.use(ensureAuth)
 
+
+
 router.get('/', (req, res) => {
   res.render('add')
 })
@@ -27,6 +29,36 @@ router.get('/:id', (req, res) => {
       }
     })
     .catch(err => console.log(err))
+})
+
+router.get('/calender?', (req, res) => {
+  const userId = req.user._id
+  const url = req.url
+  let year = ''
+  let month = ''
+  if (url.indexOf("?") === -1) {
+    const date = new Date()
+    year = date.getFullYear()
+    month = date.getMonth() + 1
+  } else {
+    const parameters = url.split("?")[1]
+    year = parameters.split("&")[0].split("=")[1]
+    month = parameters.split("&")[1].split("=")[1]
+  }
+  record.find({ userId, date: { $gte: `${year}-${month}-01`, $lte: `${year}-${month}-31` } })
+    .lean()
+    .then(datas => {
+      datas.push(year)
+      datas.push(month)
+      res.json(datas)
+    })
+    .catch(err => console.log(err))
+})
+
+router.post('/calender', (req, res) => {
+  const year = req.body.year
+  const month = req.body.month
+  res.redirect(`/tracker/calender?year=${year}&month=${month}`)
 })
 
 router.post('/search', (req, res) => {
