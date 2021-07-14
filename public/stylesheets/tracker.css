@@ -54,14 +54,7 @@ header h4 {
   font-size: 25px;
 }
 
-.display-switch a {
-  margin-left: 6px;
-  margin-right: 3px;
-  text-decoration: none;
-  color: lightgrey;
-}
-
-.pie-chart {
+.pie-chart, .calender-icon {
   background: none;
   border: none;
   color: lightgrey;
@@ -134,7 +127,7 @@ header h4 {
 /* expenseList.hbs */
 .record-list {
   width: 100%;
-  padding-left: 28%;
+  padding-left: 24%;
   margin-bottom: 12px;
 }
 
@@ -153,7 +146,7 @@ header h4 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 65%;
+  width: 60%;
   padding: 4px;
   color: chocolate;
   font-weight: bolder;
@@ -192,6 +185,17 @@ header h4 {
 
 .list.a0 .list-details {
   background-color: #f7f7f7;
+}
+
+.list-merchant {
+  width: 15%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 20px;
+  font-size: 18px;
+  color: teal;
+  font-weight: bolder;
 }
 
 /* edit.hbs */

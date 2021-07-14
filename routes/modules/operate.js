@@ -10,25 +10,8 @@ const { ensureAuth, forwardAuth } = require('../../config/authentication')
 router.use(ensureAuth)
 
 
-
 router.get('/', (req, res) => {
-  res.render('add')
-})
-
-router.get('/:id', (req, res) => {
-  const _id = req.params.id
-  const userId = req.user._id
-  record.findOne({_id, userId})
-    .lean()
-    .then(data => {
-      if (data) {
-        res.render('edit', {_id, data})
-      } else {
-        req.flash('error', 'Sorry, data does not exist')
-        res.redirect('/')
-      }
-    })
-    .catch(err => console.log(err))
+  return res.render('add')
 })
 
 router.get('/calender?', (req, res) => {
@@ -50,15 +33,42 @@ router.get('/calender?', (req, res) => {
     .then(datas => {
       datas.push(year)
       datas.push(month)
-      res.json(datas)
+      return res.json(datas)
     })
     .catch(err => console.log(err))
 })
 
-router.post('/calender', (req, res) => {
-  const year = req.body.year
-  const month = req.body.month
-  res.redirect(`/tracker/calender?year=${year}&month=${month}`)
+router.get('/daily/:id', (req, res) => {
+  const date = new Date(req.params.id + 'UTC')
+  const userId = req.user._id
+  record.find({userId, date})
+  .lean()
+  .then(datas => {
+    datas.forEach(item => {
+      const year = item.date.getFullYear()
+      const month = item.date.getMonth() + 1
+      const day = item.date.getDate()
+      item.date = `${year}-${month}-${day}`
+    })
+    return res.json(datas)
+  })
+  .catch(err => console.log(err))
+})
+
+router.get('/:id', (req, res) => {
+  const _id = req.params.id
+  const userId = req.user._id
+  record.findOne({_id, userId})
+    .lean()
+    .then(data => {
+      if (data) {
+        res.render('edit', {_id, data})
+      } else {
+        req.flash('error', 'Sorry, data does not exist')
+        return res.redirect('/')
+      }
+    })
+    .catch(err => console.log(err))
 })
 
 router.post('/search', (req, res) => {

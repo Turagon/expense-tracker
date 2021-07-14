@@ -1,17 +1,115 @@
-form.calender-period {
-  width: 25%;
+.calender-slideBox {
+  width: 35%;
   margin: 0 auto;
 }
 
-.weekday-title {
+.year-box, .month-box {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.year, .month {
+  margin: 0 5px !important;
+  text-align: center;
+  border: 2px solid lightsteelblue;
+  border-radius: 3px;
+  font-size: 20px;
+  font-weight: bolder;
+  color: grey;
+}
+
+.btn-left-arrow, .btn-right-arrow {
+  border: none;
+  background-color: white;
+  font-size: 20px;
+}
+
+.weekday-title, .daily-box {
   width: 91%;
   margin: 20px auto;
   padding: 0;
   display: flex;
+  flex-wrap: wrap;
+}
+
+.weekday-title li, .daily-box li {
+  width: 14.28%;
+  list-style: none;
+  text-align: center;
 }
 
 .weekday-title li {
-  width: 14.286%;
-  list-style: none;
-  text-align: center;
+  font-size: 18px;
+  font-weight: bolder;
+  color: darkgray;
+}
+
+.daily-box li {
+  height: 80px;
+  border: 2px solid olive;
+  padding: 3px;
+}
+
+.daily-box li h6 {
+  color: limegreen;
+  font-weight: bolder;
+}
+
+.daily-box li p {
+  font-weight: bolder;
+  color: grey;
+}
+
+.daily-box li p:hover {
+  cursor: pointer;
+  color: orange;
+}
+
+.modal-box {
+  position: absolute;
+  width: 82%;
+  height: 2000px;
+  margin: 0 auto;
+  z-index: 9;
+  background-color: rgba(250, 250, 250, 0.6);
+}
+
+.modal-sub {
+  position: absolute;
+  width: 50% !important;
+  top: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid teal;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.modal-body .list-details {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.modal-body .list-details .list-name-date {
+  margin: 0;
+}
+
+.modal-header {
+  color: teal;
+}
+
+.modal-header .close {
+  background-color: white;
+  border: none;
+  font-size: 20px;
+}
+
+.modal-footer .close-btn {
+  width: 25%;
+  background-color: teal;
+  color: aliceblue;
+  font-weight: bolder;
 }
