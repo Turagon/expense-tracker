@@ -20,7 +20,7 @@
       <div class="input-group-prepend">
         <div class="input-group-text"><span class="asterisk">*</span>類別</div>
       </div>
-      <select class="custom-select" id="expense-category" name="category">
+      <select class="custom-select" id="expense-category" name="category" required
         <option selected>Choose...</option>
         <option value="1" {{#if (eq data.category 1)}} selected {{/if}}>家居物業</option>
         <option value="2" {{#if (eq data.category 2)}} selected {{/if}}>交通出行</option>

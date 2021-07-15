@@ -28,7 +28,13 @@ router.get('/calender?', (req, res) => {
     year = parameters.split("&")[0].split("=")[1]
     month = parameters.split("&")[1].split("=")[1]
   }
-  record.find({ userId, date: { $gte: `${year}-${month}-01`, $lte: `${year}-${month}-31` } })
+  const day = new Date(year, month, 0)
+  const dayNum = day.getDate()
+  year = Number(year)
+  month = Number(month)
+  const lowerBoundary = new Date(`${year}-${month}-01` + 'UTC')
+  const upperBoundary = new Date(`${year}-${month}-${dayNum}` + 'UTC')
+  record.find({ userId, date:{ $gte: lowerBoundary, $lte: upperBoundary } })
     .lean()
     .then(datas => {
       datas.push(year)
@@ -94,7 +100,8 @@ router.post('/', (req, res) => {
       })
       .catch(err => console.log(err))
   } else {
-    res.send('invalid data post')
+    req.flash('error', 'Invalid post message')
+    res.redirect('/tracker')
   }
 })
 
@@ -116,7 +123,7 @@ router.put('/:id', (req, res) => {
           res.redirect('/')
         }
       })
-      .then(() => res.redirect('/'))
+      .then(() => res.redirect(`/tracker/${_id}`))
       .catch(err => console.log(err))
   } else {
     res.send('Invalid data post')
