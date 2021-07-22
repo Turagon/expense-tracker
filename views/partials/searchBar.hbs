@@ -1,15 +1,40 @@
-<form class="search-bar-box" action="/tracker/search" method="POST">
-  <div class="search-bar-input">
-    <label for="#search-bar-filter" class="search-bar-input-label"><i class="fas fa-filter"></i></label>
-    <div class="filter-terms">
-      <select name="filter" id="search-bar-filter">
-        <option value="1" {{#if (eq value 1 )}} selected {{/if}}>家居物業</option>
-        <option value="2" {{#if (eq value 2 )}} selected {{/if}}>交通出行</option>
-        <option value="3" {{#if (eq value 3 )}} selected {{/if}}>休閒娛樂</option>
-        <option value="4" {{#if (eq value 4 )}} selected {{/if}}>餐飲食品</option>
-        <option value="5" {{#if (eq value 5 )}} selected {{/if}}>其他</option>
-      </select>
+<div class="search-container">
+  <form class="search-bar-box" action="/tracker/searchByMonth" method="POST">
+    <div class="search-bar-input">
+      <label for="#search-bar-filter" class="search-bar-input-label"><i class="far fa-calendar-alt"></i></label>
+      <div class="filter-terms">
+        <select name="monthfilter" id="search-bar-filter">
+          <option value="1" {{#if (eq month 1 )}} selected {{/if}}>January</option>
+          <option value="2" {{#if (eq month 2 )}} selected {{/if}}>February</option>
+          <option value="3" {{#if (eq month 3 )}} selected {{/if}}>March</option>
+          <option value="4" {{#if (eq month 4 )}} selected {{/if}}>April</option>
+          <option value="5" {{#if (eq month 5 )}} selected {{/if}}>May</option>
+          <option value="6" {{#if (eq month 6 )}} selected {{/if}}>June</option>
+          <option value="7" {{#if (eq month 7 )}} selected {{/if}}>July</option>
+          <option value="8" {{#if (eq month 8 )}} selected {{/if}}>August</option>
+          <option value="9" {{#if (eq month 9 )}} selected {{/if}}>September</option>
+          <option value="10" {{#if (eq month 10 )}} selected {{/if}}>October</option>
+          <option value="11" {{#if (eq month 11 )}} selected {{/if}}>November</option>
+          <option value="12" {{#if (eq month 12 )}} selected {{/if}}>December</option>
+        </select>
+      </div>
     </div>
-  </div>
-  <button type="submit" class="search-bar-button btn btn-info btn-sm">篩選</button>
-</form>
+    <button type="submit" class="search-bar-button btn btn-info btn-sm">篩選</button>
+  </form>
+
+  <form class="search-bar-box" action="/tracker/search" method="POST">
+    <div class="search-bar-input">
+      <label for="#search-bar-filter" class="search-bar-input-label"><i class="fas fa-filter"></i></label>
+      <div class="filter-terms">
+        <select name="filter" id="search-bar-filter">
+          <option value="1" {{#if (eq value 1 )}} selected {{/if}}>家居物業</option>
+          <option value="2" {{#if (eq value 2 )}} selected {{/if}}>交通出行</option>
+          <option value="3" {{#if (eq value 3 )}} selected {{/if}}>休閒娛樂</option>
+          <option value="4" {{#if (eq value 4 )}} selected {{/if}}>餐飲食品</option>
+          <option value="5" {{#if (eq value 5 )}} selected {{/if}}>其他</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="search-bar-button btn btn-info btn-sm">篩選</button>
+  </form>
+</div>

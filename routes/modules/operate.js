@@ -3,7 +3,7 @@ const router = express.Router()
 
 const record = require('../../models/recordSchema')
 const categories = require('../../models/categorySchema')
-const { totalAmount, formatNumber } = require('../../public/javascripts/listAndTotal')
+const { iconSelect, totalAmount, formatNumber } = require('../../public/javascripts/listAndTotal')
 const validator = require('../../public/javascripts/dataValidator')
 const { ensureAuth, forwardAuth } = require('../../config/authentication')
 
@@ -25,13 +25,11 @@ router.get('/calender?', (req, res) => {
     month = date.getMonth() + 1
   } else {
     const parameters = url.split("?")[1]
-    year = parameters.split("&")[0].split("=")[1]
-    month = parameters.split("&")[1].split("=")[1]
+    year = Number(parameters.split("&")[0].split("=")[1])
+    month = Number(parameters.split("&")[1].split("=")[1])
   }
   const day = new Date(year, month, 0)
   const dayNum = day.getDate()
-  year = Number(year)
-  month = Number(month)
   const lowerBoundary = new Date(`${year}-${month}-01` + 'UTC')
   const upperBoundary = new Date(`${year}-${month}-${dayNum}` + 'UTC')
   record.find({ userId, date:{ $gte: lowerBoundary, $lte: upperBoundary } })
@@ -86,6 +84,28 @@ router.post('/search', (req, res) => {
       records.forEach(item => item.icon = icon[0].icon);
       const amount = formatNumber(totalAmount(...records))
       res.render('index', {records, amount, value})
+    })
+    .catch(err => console.log(err))
+})
+
+router.post('/searchByMonth', (req, res) => {
+  const month = Number(req.body.monthfilter)
+  const year = 2021
+  const userId = req.user._id
+  const day = new Date(2021, month, 0)
+  const dayNum = day.getDate()
+  const lowerBoundary = new Date(`${year}-${month}-01` + 'UTC')
+  const upperBoundary = new Date(`${year}-${month}-${dayNum}` + 'UTC')
+  Promise.all([record.find({ date: { $gte: lowerBoundary, $lte: upperBoundary }, userId }).lean(), categories.find().lean()])
+    .then(results => {
+      const [records, categories] = results
+      records.forEach(item => {
+        item.icon = iconSelect(item, ...categories)
+        const day = item.date.getDate()
+        item.date = `${year}-${month}-${day}`
+      })
+      const amount = formatNumber(totalAmount(...records))
+      res.render('index', { records, amount, month })
     })
     .catch(err => console.log(err))
 })

@@ -1,3 +1,5 @@
+// const url = "https://shielded-eyrie-64965.herokuapp.com/tracker/calender"
+// const url = "https://shielded-eyrie-64965.herokuapp.com/tracker/daily"
 const urlCalender = "/tracker/calender"
 const urlDaily = "/tracker/daily"
 const calenderIcon = document.querySelector('.calender-icon')
@@ -26,16 +28,12 @@ if (calenderIcon) {
 // listen to calender month or year change
 if (ul) {
   ul.addEventListener('click', event => {
-    let yearInput = ''
-    let monthInput = ''
     let year = 0
     let month = 0
     let target = event.target
     if (target.classList.contains('year-btn') || target.classList.contains('month-btn')) {
-      yearInput = document.querySelector('.year')
-      monthInput = document.querySelector('.month')
-      year = Number(yearInput.value)
-      month = Number(monthInput.value)
+      year = Number(document.querySelector('.year').value)
+      month = Number(document.querySelector('.month').value)
     } else {
       return
     }
@@ -67,7 +65,7 @@ if (ul) {
     })
 }
 
-// listen to daily expense
+// listen to daily expense detail request
 if (ul) {
   ul.addEventListener('click', event => {
     let target = event.target
@@ -129,16 +127,14 @@ function calculateCalenderPrefix (year,  month) {
   const firstDay = new Date(year, month - 1, 1)
   const weekday = firstDay.getDay() 
   let prefix = ''
-  if (!weekday) {
-    return prefix
-  } else {
+  if (weekday) {
     for (let i = 0; i < weekday; i++) {
       prefix += `
         <li class="weekday"></li>
       `
     }
-    return prefix
-  }
+  } 
+  return prefix
 }
 
 // aggregate all calender elements
