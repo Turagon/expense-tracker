@@ -1,7 +1,7 @@
-// const url = "https://shielded-eyrie-64965.herokuapp.com/tracker/calender"
-// const url = "https://shielded-eyrie-64965.herokuapp.com/tracker/daily"
-const urlCalender = "/tracker/calender"
-const urlDaily = "/tracker/daily"
+const url = "https://shielded-eyrie-64965.herokuapp.com/tracker/calender"
+const url = "https://shielded-eyrie-64965.herokuapp.com/tracker/daily"
+// const urlCalender = "/tracker/calender"
+// const urlDaily = "/tracker/daily"
 const calenderIcon = document.querySelector('.calender-icon')
 const ul = document.querySelector('.major-content')
 const container = document.querySelector('.container')

@@ -81,7 +81,14 @@ router.post('/search', (req, res) => {
   Promise.all([record.find({category: value, userId}).lean(), categories.find({id: value}).lean()])
     .then(results => {
       const [records, icon] = results
-      records.forEach(item => item.icon = icon[0].icon);
+      // records.forEach(item => item.icon = icon[0].icon)
+      records.forEach(item => {
+        item.icon = icon[0].icon
+        const year = item.date.getFullYear()
+        const month = item.date.getMonth() + 1
+        const day = item.date.getDate()
+        item.date = `${year}-${month}-${day}`
+      })
       const amount = formatNumber(totalAmount(...records))
       res.render('index', {records, amount, value})
     })
