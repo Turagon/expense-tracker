@@ -20,12 +20,7 @@ db.once('open', () => {
           const refId = user._id
           for (let i of recordData) {
             Record.create({
-                name: i.name,
-                category: i.category,
-                date: i.date,
-                amount: i.amount,
-                merchant: i.merchant, 
-                userId: refId
+                ...i, userId: refId
               })
           }
         })
