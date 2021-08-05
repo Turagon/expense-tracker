@@ -11,15 +11,16 @@ router.use(ensureAuth)
 router.get('/', (req, res) => {
   const userId = req.user._id
   Promise.all([record.find({ userId }).lean(), category.find().lean()])
-    .then(results => {
-      const [records, categories] = results
-      records.forEach(item => {
-        item.icon = iconSelect(item, ...categories)
-        const year = item.date.getFullYear()
-        const month = item.date.getMonth() + 1
-        const day = item.date.getDate()
-        item.date = `${year}-${month}-${day}`
-      })
+  .then(results => {
+    const [records, categories] = results
+    records.forEach(item => {
+      item.icon = iconSelect(item, ...categories)
+      const time = new Date(item.date)
+      const year = time.getFullYear()
+      const month = time.getMonth() + 1
+      const day = time.getDate()
+      item.date = `${year}-${month}-${day}`
+    })
       const amount = formatNumber(totalAmount(...records))
       res.render('index', {records, amount})
     })

@@ -81,7 +81,6 @@ router.post('/search', (req, res) => {
   Promise.all([record.find({category: value, userId}).lean(), categories.find({id: value}).lean()])
     .then(results => {
       const [records, icon] = results
-      // records.forEach(item => item.icon = icon[0].icon)
       records.forEach(item => {
         item.icon = icon[0].icon
         const year = item.date.getFullYear()
@@ -141,16 +140,17 @@ router.put('/:id', (req, res) => {
       .then(record => {
         if (record) {
           record.name = update.name
-          record.date = update.date
+          record.date = Number(new Date(update.date))
           record.category = update.category
           record.amount = update.amount
+          record.merchant = update.merchant
           return record.save()
         } else {
           req.flash('error', 'Sorry, Data does not exist')
           res.redirect('/')
         }
       })
-      .then(() => res.redirect(`/tracker/${_id}`))
+      .then(() => res.redirect(`/`))
       .catch(err => console.log(err))
   } else {
     res.send('Invalid data post')

@@ -23,10 +23,10 @@ handlebars.registerHelper('even', function(value, options) {
 })
 // this helper is for edit page, allow the date column could be shown normally
 handlebars.registerHelper('dateConvert', function (value) {
-  const date = new Date(value + 'UTC')
+  const date = new Date(value)
   var Y = date.getFullYear() + '-'
   var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
-  var D = date.getDate()
+  var D = date.getDate() > 9 ? date.getDate() : '0' + date.getDate()
   return Y + M + D
 })
 
