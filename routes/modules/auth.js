@@ -51,9 +51,9 @@ router.post('/login',
 // 這個路由改用處理資料庫的錯誤訊息當作練習
 router.post('/register', (req, res) => {
   const { name, email, password, password2 } = req.body
-  const errors = []
   if (password !== password2) {
-    errors.push({ msg: 'the passwords do not match each other' })
+    const errors = []
+    errors.push('the passwords do not match each other')
     res.render('register', {
       errors,
       name,
