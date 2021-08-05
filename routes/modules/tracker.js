@@ -49,10 +49,7 @@ router.get('/daily/:id', (req, res) => {
   .lean()
   .then(datas => {
     datas.forEach(item => {
-      const year = item.date.getFullYear()
-      const month = item.date.getMonth() + 1
-      const day = item.date.getDate()
-      item.date = `${year}-${month}-${day}`
+      item.date = item.date.toJSON().slice(0, 10)
     })
     return res.json(datas)
   })
@@ -83,10 +80,7 @@ router.post('/search', (req, res) => {
       const [records, icon] = results
       records.forEach(item => {
         item.icon = icon[0].icon
-        const year = item.date.getFullYear()
-        const month = item.date.getMonth() + 1
-        const day = item.date.getDate()
-        item.date = `${year}-${month}-${day}`
+        item.date = item.date.toJSON().slice(0, 10)
       })
       const amount = formatNumber(totalAmount(...records))
       res.render('index', {records, amount, value})

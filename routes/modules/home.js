@@ -13,13 +13,11 @@ router.get('/', (req, res) => {
   Promise.all([record.find({ userId }).lean(), category.find().lean()])
   .then(results => {
     const [records, categories] = results
+    const checkTimeDif = new Date()
+    const timeDif = checkTimeDif.getTimezoneOffset() * 60 * 1000
     records.forEach(item => {
       item.icon = iconSelect(item, ...categories)
-      const time = new Date(item.date)
-      const year = time.getFullYear()
-      const month = time.getMonth() + 1
-      const day = time.getDate()
-      item.date = `${year}-${month}-${day}`
+      item.date = item.date.toJSON().slice(0, 10)
     })
       const amount = formatNumber(totalAmount(...records))
       res.render('index', {records, amount})
