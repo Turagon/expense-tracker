@@ -3,7 +3,7 @@
 <form action="/auth/register" method="post" class="register">
   {{#each errors}}
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>Note!</strong> {{this.msg}}
+    <strong>Note!</strong> {{this}}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   {{/each}}
@@ -25,7 +25,7 @@
   <div class="form-group mt-2">
     <label for="password-register" class="select-label col-form-label"><i class="fas fa-key"></i>Password</label>
     <div class="input-column p-0">
-      <input type="text" id="password-register" class="form-control" name="password" aria-describedby="help"
+      <input type="password" id="password-register" class="form-control" name="password" aria-describedby="help"
         minlength="6" maxlength="12" {{#if password}} value="{{password}}" {{/if}}
         placeholder="At least one number, one lowercase, one uppercase character" required>
       <small id="help" class="form-text text-muted invalid">invalid password length or format</small>
@@ -35,7 +35,7 @@
     <label for="password2-register" class="select-label col-form-label"><i class="fas fa-key"></i>Password
       Confirm</label>
     <div class="input-column p-0">
-      <input type="text" id="password2-register" class="form-control" name="password2" aria-describedby="help"
+      <input type="password" id="password2-register" class="form-control" name="password2" aria-describedby="help"
         minlength="6" maxlength="12" {{#if password2}} value="{{password2}}" {{/if}} placeholder="please input password"
         required>
       <small id="help" class="form-text text-muted invalid">invalid password length or format</small>

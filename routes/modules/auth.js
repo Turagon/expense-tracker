@@ -1,9 +1,9 @@
 const express = require('express')
 const user = require('../../models/userSchema')
-const bcrypt = require('bcryptjs')
 const passport = require('passport')
-const { emailVerify, passwordVerify } = require('../../public/javascripts/authValidate.js')
 const { ensureAuth, forwardAuth } = require('../../config/authentication')
+// const { emailVerify, passwordVerify } = require('../../public/javascripts/authValidate.js')
+// 上面的引用因為改版 所以用不到 但是因為是不同寫法所導致 所以暫時保留改檔案
 
 const router = express.Router()
 
@@ -48,19 +48,12 @@ router.post('/login',
   }
 )
 
+// 這個路由改用處理資料庫的錯誤訊息當作練習
 router.post('/register', (req, res) => {
   const { name, email, password, password2 } = req.body
   const errors = []
-  if (!emailVerify(email)) {
-    errors.push({ msg: 'the email format is invalid' })
-  }
-  if (!passwordVerify(password)) {
-    errors.push({ msg: 'the password format or length is invalid' })
-  }
   if (password !== password2) {
     errors.push({ msg: 'the passwords do not match each other' })
-  }
-  if (errors.length > 0) {
     res.render('register', {
       errors,
       name,
@@ -70,39 +63,34 @@ router.post('/register', (req, res) => {
       layout: 'loginPage'
     })
   } else {
-    user.findOne({ email: email })
-      .then(users => {
-        if (users) {
-          errors.push({ msg: 'the email is registered already' })
-          res.render('register', {
-            errors,
-            name,
-            email,
-            password,
-            password2,
-            layout: 'loginPage'
-          })
-        } else {
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(password, salt, (err, hash) => {
-              if (err) {
-                throw err
-              }
-              user.create({
-                name,
-                email,
-                password: hash
-              })
-                .then(user => {
-                  req.flash('msg', 'Your registration is successful')
-                  res.redirect('/auth')
-                })
-                .catch(err => console.log(err))
-            })
-          })
-        }
+    user.create({
+      name, 
+      email,
+      password 
+    })
+    .then(user => {
+      req.flash('msg', 'Your registration is successful')
+      res.redirect('/auth')
+    })
+    .catch(err => {
+      const errors = []
+      if (err.code === 11000) {
+        const email = err.keyValue.email
+        errors.push(`${email} has been registered, please check.`)
+      } else {
+        Object.values(err.errors).forEach(({ properties }) => {
+          return errors.push(properties.message)
+        })
+      } 
+      res.render('register', {
+        errors,
+        name,
+        email,
+        password,
+        password2,
+        layout: 'loginPage'
       })
-      .catch(err => console.log(err))
+    })
   }
 })
 

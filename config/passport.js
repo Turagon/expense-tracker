@@ -36,22 +36,16 @@ const facebookStrategy = new fbStrategy(
     users.findOne({email})
       .then(user => {
         if (!user) {
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(Math.random().toString(20).slice(9), salt, (err, hash) => {
-              if (err) throw err
-              users.create({
-                name,
-                email,
-                password: hash
-              })
-              .then(user => {
-                return cb(null, user)
-              })
-              .catch(err => { 
-                console.log(err)
-                return cb(null, false, {message: 'Oops! Something wrong happens, please try again'})
-              })
-            })
+          users.create({
+            name,
+            email
+          })
+          .then(user => {
+            return cb(null, user)
+          })
+          .catch(err => { 
+            console.log(err)
+            return cb(null, false, {message: 'Oops! Something wrong happens, please try again'})
           })
         } else {
           return cb(null, user)
