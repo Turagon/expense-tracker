@@ -3,7 +3,6 @@ const router = express.Router()
 
 const record = require('../../models/recordSchema')
 const categories = require('../../models/categorySchema')
-const { iconSelect, totalAmount, formatNumber } = require('../../public/javascripts/listAndTotal')
 const validator = require('../../public/javascripts/dataValidator')
 const { ensureAuth, forwardAuth } = require('../../config/authentication')
 
@@ -16,18 +15,12 @@ router.get('/', (req, res) => {
 
 router.get('/calender?', (req, res) => {
   const userId = req.user._id
-  const url = req.url
-  let year = ''
-  let month = ''
-  if (url.indexOf("?") === -1) {
+  let { year, month } = req.query
+  if (!year) {
     const date = new Date()
     year = date.getFullYear()
     month = date.getMonth() + 1
-  } else {
-    const parameters = url.split("?")[1]
-    year = Number(parameters.split("&")[0].split("=")[1])
-    month = Number(parameters.split("&")[1].split("=")[1])
-  }
+  } 
   const day = new Date(year, month, 0)
   const dayNum = day.getDate()
   const lowerBoundary = new Date(`${year}-${month}-01` + 'UTC')
@@ -56,6 +49,30 @@ router.get('/daily/:id', (req, res) => {
   .catch(err => console.log(err))
 })
 
+router.get('/search', (req, res) => {
+  const {month, category} = req.query
+  const year = 2021
+  const userId = req.user._id
+  let lowerBoundary = ''
+  let upperBoundary = ''
+  if (month === 'All') {
+    lowerBoundary = new Date(`${year}-01-01` + 'UTC')
+    upperBoundary = new Date(`${year}-12-31` + 'UTC')
+  } else {
+    let monthValue = Number(month)
+    const day = new Date(2021, monthValue, 0)
+    const dayNum = day.getDate()
+    lowerBoundary = new Date(`${year}-${monthValue}-01` + 'UTC')
+    upperBoundary = new Date(`${year}-${monthValue}-${dayNum}` + 'UTC')
+  }
+  const categoryValue = category === 'All'? [1, 2, 3, 4, 5]: [Number(category)]
+  Promise.all([record.find({ date: { $gte: lowerBoundary, $lte: upperBoundary }, category: { $in: categoryValue }, userId }).lean(), categories.find({ id: { $in: categoryValue } }).lean()])
+  .then(results => {
+    res.json(results)
+  })
+  .catch(err => console.log(err))
+})
+
 router.get('/:id', (req, res) => {
   const _id = req.params.id
   const userId = req.user._id
@@ -68,44 +85,6 @@ router.get('/:id', (req, res) => {
         req.flash('error', 'Sorry, data does not exist')
         return res.redirect('/')
       }
-    })
-    .catch(err => console.log(err))
-})
-
-router.post('/search', (req, res) => {
-  const value = Number(req.body.filter)
-  const userId = req.user._id
-  Promise.all([record.find({category: value, userId}).lean(), categories.find({id: value}).lean()])
-    .then(results => {
-      const [records, icon] = results
-      records.forEach(item => {
-        item.icon = icon[0].icon
-        item.date = item.date.toJSON().slice(0, 10)
-      })
-      const amount = formatNumber(totalAmount(...records))
-      res.render('index', {records, amount, value})
-    })
-    .catch(err => console.log(err))
-})
-
-router.post('/searchByMonth', (req, res) => {
-  const month = Number(req.body.monthfilter)
-  const year = 2021
-  const userId = req.user._id
-  const day = new Date(2021, month, 0)
-  const dayNum = day.getDate()
-  const lowerBoundary = new Date(`${year}-${month}-01` + 'UTC')
-  const upperBoundary = new Date(`${year}-${month}-${dayNum}` + 'UTC')
-  Promise.all([record.find({ date: { $gte: lowerBoundary, $lte: upperBoundary }, userId }).lean(), categories.find().lean()])
-    .then(results => {
-      const [records, categories] = results
-      records.forEach(item => {
-        item.icon = iconSelect(item, ...categories)
-        const day = item.date.getDate()
-        item.date = `${year}-${month}-${day}`
-      })
-      const amount = formatNumber(totalAmount(...records))
-      res.render('index', { records, amount, month })
     })
     .catch(err => console.log(err))
 })

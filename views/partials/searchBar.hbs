@@ -1,9 +1,10 @@
 <div class="search-container">
-  <form class="search-bar-box" action="/tracker/searchByMonth" method="POST">
+  <form class="search-bar-box">
     <div class="search-bar-input">
       <label for="#search-bar-filter" class="search-bar-input-label"><i class="far fa-calendar-alt"></i></label>
       <div class="filter-terms">
-        <select name="monthfilter" id="search-bar-filter">
+        <select name="monthfilter" id="search-bar-filter" class="month-filter">
+          <option value="All" {{#if (eq month 'All' )}} selected {{/if}}>All</option>
           <option value="1" {{#if (eq month 1 )}} selected {{/if}}>January</option>
           <option value="2" {{#if (eq month 2 )}} selected {{/if}}>February</option>
           <option value="3" {{#if (eq month 3 )}} selected {{/if}}>March</option>
@@ -19,14 +20,14 @@
         </select>
       </div>
     </div>
-    <button type="submit" class="search-bar-button btn btn-info btn-sm">篩選</button>
   </form>
 
-  <form class="search-bar-box" action="/tracker/search" method="POST">
+  <form class="search-bar-box">
     <div class="search-bar-input">
       <label for="#search-bar-filter" class="search-bar-input-label"><i class="fas fa-filter"></i></label>
       <div class="filter-terms">
-        <select name="filter" id="search-bar-filter">
+        <select name="filter" id="search-bar-filter" class="category-filter">
+          <option value="All" {{#if (eq value 'All' )}} selected {{/if}}>All</option>
           <option value="1" {{#if (eq value 1 )}} selected {{/if}}>家居物業</option>
           <option value="2" {{#if (eq value 2 )}} selected {{/if}}>交通出行</option>
           <option value="3" {{#if (eq value 3 )}} selected {{/if}}>休閒娛樂</option>
@@ -35,6 +36,5 @@
         </select>
       </div>
     </div>
-    <button type="submit" class="search-bar-button btn btn-info btn-sm">篩選</button>
   </form>
 </div>
