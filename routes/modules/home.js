@@ -14,7 +14,6 @@ router.get('/', (req, res) => {
   .then(results => {
     const [records, categories] = results
     const checkTimeDif = new Date()
-    const timeDif = checkTimeDif.getTimezoneOffset() * 60 * 1000
     records.forEach(item => {
       item.icon = iconSelect(item, ...categories)
       item.date = item.date.toJSON().slice(0, 10)
