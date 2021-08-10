@@ -7,7 +7,7 @@ if (searchContainer) {
   searchContainer.addEventListener('change', event => {
     const month = monthInput.value
     const category = categoryInput.value
-    const dataRequestUrl = `https://shielded-eyrie-64965.herokuapp.com/search?month=${month}&category=${category}`
+    const dataRequestUrl = `https://shielded-eyrie-64965.herokuapp.com/tracker/search?month=${month}&category=${category}`
     // const dataRequestUrl = `/tracker/search?month=${month}&category=${category}`
     axios
     .get(dataRequestUrl)
