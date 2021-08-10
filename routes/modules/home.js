@@ -13,7 +13,6 @@ router.get('/', (req, res) => {
   Promise.all([record.find({ userId }).lean(), category.find().lean()])
   .then(results => {
     const [records, categories] = results
-    const checkTimeDif = new Date()
     records.forEach(item => {
       item.icon = iconSelect(item, ...categories)
       item.date = item.date.toJSON().slice(0, 10)

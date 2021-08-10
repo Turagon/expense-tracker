@@ -23,8 +23,12 @@ handlebars.registerHelper('even', function(value, options) {
 })
 // this helper is for edit page, allow the date column could be shown normally
 handlebars.registerHelper('dateConvert', function (value) {
-  const date = value.toJSON().slice(0, 10)
-  return date
+  if (value) {
+    const date = value.toJSON().slice(0, 10)
+    return date
+  } else {
+    return
+  } 
 })
 
 app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}))
